@@ -8,3 +8,17 @@ export const addTodo = data => {
       payload: data,
     });
   };
+
+  export const deleteData =(data) =>{
+    store.dispatch({
+      type:types.DELETE,
+      payload:data,
+    })
+  }
+
+  export const edit =data=>{
+    store.dispatch({
+      type:types.EDIT,
+      payload:data
+    })
+  }

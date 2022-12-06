@@ -1,6 +1,8 @@
 export default {
   INCREMENT: 'Increment',
   DECREMENT: 'decrement',
-  ADDTODO :'AddTodo'
+  ADDTODO :'AddTodo',
+  DELETE:'Delete',
+  EDIT:'Edit'
 };
  

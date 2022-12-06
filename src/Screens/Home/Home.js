@@ -1,46 +1,49 @@
 //import liraries
-import React, {Component, useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
-import { useSelector } from 'react-redux';
-import { addTodo } from '../../redux/action/addTodo';
-import { addTask } from '../../redux/reducer/addTodo';
-
-
+import React, { Component, useEffect, useState } from "react";
+import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import { useSelector } from "react-redux";
+import { addTodo } from "../../redux/action/addTodo";
+import { addTask } from "../../redux/reducer/addTodo";
 
 // create a component
-const Home = ({navigation}) => {
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [department, setDepartment] = useState('');
+const Home = ({ navigation ,route}) => {
+  console.log('route',route.params)
+  console.log(route.params,"gygyfgyf")
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [department, setDepartment] = useState("");
 
-   const todo=useSelector(state=>state.newData)
-   console.log(todo ,"data in home")
+  const todo = useSelector((state) => state.newData);
 
+  
+  //  console.log(todo ,"data in home")
 
   const creds = () => {
-
-    if (name == '') {
-      alert('please name');
+    if (name == "") {
+      alert("please name");
       return false;
-    } else if (department == '') {
-      alert('plese FILL the department');
+    } else if (department == "") {
+      alert("plese Fill the department");
       return false;
-    } else if (age == '') {
-      alert('oops');
+    } else if (age == "") {
+      alert("oops");
       return false;
     } else {
       return true;
     }
   };
 
+
   const onSubmit = () => {
     const validation = creds();
     if (!!validation) {
-      const newData = [{name: name, age: age, department: department}];
-      console.log('data', todo.concat(newData));
+      const newData = [{ name: name, age: age, department: department }];
+      // console.log('data', todo.concat(newData));
 
-      addTodo(todo.concat(newData))
-       
+      // addTodo(todo.concat(newData))
+
+      addTodo([...todo, ...newData]);
+
       navigation.goBack();
     }
   };
@@ -51,25 +54,36 @@ const Home = ({navigation}) => {
       <TextInput
         placeholder="Enter the Name"
         value={name}
-        onChangeText={e => setName(e)}
+        onChangeText={(e) => setName(e)}
       />
-
-      <Text style={{marginTop: 24}} value={age} onChangeText={e => setAge(e)}>
-        Age
+    
+  
+      <Text
+        style={{ marginTop: 24 }}
+        value={age}
+        onChangeText={(e) => setAge(e)}
+      >
+        Department
       </Text>
+      
+     <Text>{route.params.NAME}</Text>
+   
       <TextInput
         placeholder="Enter the department"
         value={department}
-        onChangeText={e => setDepartment(e)}
+        onChangeText={(e) => setDepartment(e)}
       />
-      <Text style={{marginTop: 24}}>Department</Text>
+      <Text style={{ marginTop: 24 }}>Age</Text>
       <TextInput
         placeholder="Enter the age"
         value={age}
-        onChangeText={e => setAge(e)}
+        onChangeText={(e) => setAge(e)}
       />
-
-      <Button onPress={onSubmit} title="Submit" />
+      {route.params.isEdit ? 
+        <Button onPress={onSubmit} title="Submit" />
+      : 
+        <Button onPress={onSubmit} title="Update" />
+      }
     </View>
   );
 };
@@ -78,8 +92,8 @@ const Home = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
