@@ -9,9 +9,9 @@ import { addTask } from "../../redux/reducer/addTodo";
 const Home = ({ navigation ,route}) => {
   console.log('route',route.params)
   console.log(route.params,"gygyfgyf")
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [department, setDepartment] = useState("");
+  const [name, setName] = useState(route.params.name);
+  const [age, setAge] = useState(route.params.age);
+  const [department, setDepartment] = useState(route.params.department);
 
   const todo = useSelector((state) => state.newData);
 
